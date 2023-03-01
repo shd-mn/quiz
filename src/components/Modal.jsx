@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Details from './Details';
 import { useGlobalContext } from '../context';
-// import Details from './Details';
 
 const Modal = () => {
     const { result, amount, modalShow, handleReset } = useGlobalContext();
@@ -31,7 +30,6 @@ const Modal = () => {
                     </button>
                 )}
             </div>
-            )}
         </div>
     );
 };

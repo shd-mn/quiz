@@ -3,6 +3,7 @@ import { useGlobalContext } from '../context';
 
 const SetupForm = () => {
     const {
+        error,
         amount,
         handleAmount,
         handleCategory,
@@ -55,6 +56,8 @@ const SetupForm = () => {
                     <option value="hard">hard</option>
                 </select>
             </div>
+            {error.show && <p className="error">{error.msg}</p>}
+
 
             <button className="submit-btn" type="submit">
                 start

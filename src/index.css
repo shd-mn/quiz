@@ -224,31 +224,7 @@ main {
     color: var(--clr-green-dark);
 }
 
-.correct-question,
-.incorrect_question {
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 5px;
-}
 
-.correct-question {
-    background-color: var(--clr-green-light);
-    /* opacity: 0.5; */
-}
-
-.incorrect_question {
-    background-color: var(--clr-red-light);
-}
-
-.question {
-    font-size: 1.2rem;
-}
-
-.answer {
-    padding: 5px;
-    font-size: 1rem;
-    font-weight: 700;
-}
 
 .nav-btn-group {
     display: flex;
@@ -338,7 +314,6 @@ Form
     padding: 0.4rem 2rem;
     margin: 0 auto;
     margin-top: 3rem;
-
 }
 
 /*
@@ -399,6 +374,39 @@ Loading
 .modal-content p {
     font-size: 1.5rem;
     text-transform: none;
+}
+
+
+/* Details */
+.correct-question,
+.incorrect_question {
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.correct-question {
+    background-color: var(--clr-green-light);
+}
+
+.incorrect_question {
+    background-color: var(--clr-red-light);
+}
+
+.question {
+    font-size: 1.2rem;
+}
+
+.answer {
+    padding: 5px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.answer span {
+    background-color: rgba(224, 224, 224, 0.205);
+    padding: 2px 5px;
+    border-radius: 2px;
 }
 
 .close-btn {

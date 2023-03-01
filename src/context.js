@@ -9,9 +9,6 @@ const table = {
 
 const API_ENDPOINT = 'https://opentdb.com/api.php?';
 
-// const url = 'https://opentdb.com/api.php?type=multiple&amount=5&category=21&difficulty=easy';
-
-
 const AppContext = React.createContext();
 
 const initialState = {
@@ -22,7 +19,8 @@ const initialState = {
     category: 21,
     difficulty: 'easy',
     result: 0,
-    modalShow: false
+    modalShow: false,
+    error: { show: false, msg: '' }
 };
 
 const AppProvider = ({ children }) => {
@@ -33,10 +31,14 @@ const AppProvider = ({ children }) => {
         try {
             const response = await fetch(url);
             const result = await response.json();
-            dispatch({
-                type: 'SET_QUIZ',
-                payload: result.results
-            });
+            if (result.response_code === 0) {
+                dispatch({
+                    type: 'SET_QUIZ',
+                    payload: result.results
+                });
+            } else {
+                dispatch({ type: 'HANDLE_ERROR', payload: result.response_code })
+            }
         } catch (error) {
             console.log(error);
         }
@@ -84,9 +86,6 @@ const AppProvider = ({ children }) => {
     const handleReset = () => {
         dispatch({ type: 'HANDLE_RESET' });
     };
-    // console.log(state.quiz);
-
-    // console.log(state);
 
     const data = {
         ...state,
@@ -100,7 +99,7 @@ const AppProvider = ({ children }) => {
     };
     return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
 };
-// make sure use
+
 export const useGlobalContext = () => {
     return useContext(AppContext);
 };

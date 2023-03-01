@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 import { useGlobalContext } from '../context';
+import { decode } from 'html-entities';
 
 const Questions = () => {
     const { quiz, amount, handleAnswers, handleResult } = useGlobalContext();
     const [questionNum, setQuestionNum] = useState(0);
+    console.log(quiz)
     return (
         <>
             <p className="quiz-count">
                 Quiz {questionNum + 1}/{amount}
             </p>
             <article className="container">
-                {<h2>{quiz[questionNum].question}</h2>}
-                {quiz[questionNum].questions.map((answer, idx) => {
+                {<h2>{decode(quiz[questionNum].question)}</h2>}
+                {quiz[questionNum].answers.map((answer, idx) => {
                     const question = quiz[questionNum].question;
                     return (
                         <div key={idx} className="btn-container">
                             <button
-                                className={`answer-btn ${
-                                    quiz[questionNum].your_answer === answer &&
+                                className={`answer-btn ${quiz[questionNum].your_answer === answer &&
                                     'btn-selected'
-                                } `}
+                                    } `}
                                 onClick={() => {
                                     handleAnswers(question, answer);
                                 }}
                             >
-                                {answer}
+                                {decode(answer)}
                             </button>
                         </div>
                     );
@@ -32,7 +33,7 @@ const Questions = () => {
             </article>
 
             <div className="nav-btn-group">
-                {questionNum > 0 && questionNum < quiz.length - 1 && (
+                {questionNum > 0 && questionNum < quiz.length && (
                     <button
                         className="prev-question"
                         type="button"

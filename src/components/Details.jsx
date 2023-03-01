@@ -1,4 +1,5 @@
 import { useGlobalContext } from '../context';
+import { decode } from 'html-entities';
 const Details = () => {
     const { quiz } = useGlobalContext();
     return (
@@ -11,17 +12,16 @@ const Details = () => {
                     return (
                         <div
                             key={idx}
-                            className={`${
-                                your === correct
-                                    ? 'correct-question'
-                                    : 'incorrect_question'
-                            }`}
+                            className={`${your === correct
+                                ? 'correct-question'
+                                : 'incorrect_question'
+                                }`}
                         >
-                            <h4 className="question">{answer.question}</h4>
+                            <h4 className="question">{decode(answer.question)}</h4>
                             <h6 className="answer">
-                                correct answer: {correct}
+                                <span>correct answer :</span>  {correct}
                             </h6>
-                            <h6 className="answer">your answer: {your}</h6>
+                            <h6 className="answer"> <span>your answer :</span> {your}</h6>
                         </div>
                     );
                 })}

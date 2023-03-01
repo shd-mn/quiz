@@ -5,7 +5,8 @@ export const sortAnswers = (quiz) => {
         const random = Math.floor(Math.random() * 4);
         const randomAnswers = [];
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < newAnswers.length; i++) {
+
             if (random === i) {
                 randomAnswers.push(newAnswers[0]);
             } else {
@@ -17,7 +18,7 @@ export const sortAnswers = (quiz) => {
             }
         }
 
-        return { ...item, questions: randomAnswers, your_answer: '' };
+        return { ...item, answers: randomAnswers, your_answer: '' };
     });
     return newQuiz;
 };
