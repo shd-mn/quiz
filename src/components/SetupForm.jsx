@@ -2,14 +2,7 @@ import React from 'react';
 import { useGlobalContext } from '../context';
 
 const SetupForm = () => {
-    const {
-        error,
-        amount,
-        handleAmount,
-        handleCategory,
-        handleDiffIuculty,
-        handleStart
-    } = useGlobalContext();
+    const { error, input, handleStart, handleInputs } = useGlobalContext();
 
     return (
         <form className="setup-form" onSubmit={(e) => handleStart(e)}>
@@ -23,9 +16,9 @@ const SetupForm = () => {
                     type="number"
                     min="1"
                     max="50"
-                    value={amount}
+                    value={input.amount}
                     onChange={(e) => {
-                        handleAmount(e.target.value);
+                        handleInputs(e);
                     }}
                 />
             </div>
@@ -35,7 +28,8 @@ const SetupForm = () => {
                     className="form-input"
                     name="category"
                     id="category"
-                    onChange={(e) => handleCategory(e.target.value)}
+                    value={input.category}
+                    onChange={(e) => handleInputs(e)}
                 >
                     <option value="sports">sports</option>
                     <option value="history">history</option>
@@ -49,7 +43,8 @@ const SetupForm = () => {
                     className="form-input"
                     name="difficulty"
                     id="difficulty"
-                    onChange={(e) => handleDiffIuculty(e.target.value)}
+                    onChange={(e) => handleInputs(e)}
+                    value={input.difficulty}
                 >
                     <option value="easy">easy</option>
                     <option value="medium">medium</option>
@@ -57,7 +52,6 @@ const SetupForm = () => {
                 </select>
             </div>
             {error.show && <p className="error">{error.msg}</p>}
-
 
             <button className="submit-btn" type="submit">
                 start

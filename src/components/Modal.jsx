@@ -3,7 +3,7 @@ import Details from './Details';
 import { useGlobalContext } from '../context';
 
 const Modal = () => {
-    const { result, amount, modalShow, handleReset } = useGlobalContext();
+    const { result, input, modalShow, handleReset } = useGlobalContext();
     const [showDetails, setShowDetails] = useState(false);
     return (
         <div className={`modal-container ${modalShow && 'isOpen'}`}>
@@ -11,7 +11,7 @@ const Modal = () => {
                 {!showDetails && (
                     <>
                         <h2>congrats!</h2>
-                        <p>{`You answered ${((result * 100) / amount).toFixed(
+                        <p>{`You answered ${((result * 100) / input.amount).toFixed(
                             0
                         )} % of questions correctly`}</p>
                     </>

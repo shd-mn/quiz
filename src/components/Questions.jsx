@@ -3,13 +3,12 @@ import { useGlobalContext } from '../context';
 import { decode } from 'html-entities';
 
 const Questions = () => {
-    const { quiz, amount, handleAnswers, handleResult } = useGlobalContext();
+    const { quiz, input, handleAnswers, handleResult } = useGlobalContext();
     const [questionNum, setQuestionNum] = useState(0);
-    console.log(quiz)
     return (
         <>
             <p className="quiz-count">
-                Quiz {questionNum + 1}/{amount}
+                Quiz {questionNum + 1}/{input.amount}
             </p>
             <article className="container">
                 {<h2>{decode(quiz[questionNum].question)}</h2>}

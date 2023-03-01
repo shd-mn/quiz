@@ -7,24 +7,29 @@ export const reducer = (state, action) => {
         }
 
         case 'HANDLE_ERROR': {
-            let errorMsg = ''
+            let errorMsg = '';
             if (action.payload === 1) {
-                errorMsg = "Could not return results. Please Try Different Options"
+                errorMsg =
+                    'Could not return results. Please Try Different Options';
             } //...
-            return { ...state, isLoading: false, error: { show: true, msg: errorMsg } };
+            return {
+                ...state,
+                isLoading: false,
+                error: { show: true, msg: errorMsg },
+            };
         }
 
         case 'HANDLE_START':
             return { ...state, isStart: true };
 
-        case 'HANDLE_AMOUNT':
-            return { ...state, amount: action.payload };
-
-        case 'HANDLE_CATEGORY':
-            return { ...state, category: action.payload };
-
-        case 'HANDLE_DIFFICULTY':
-            return { ...state, difficulty: action.payload };
+        case 'HANDLE_INPUT':
+            return {
+                ...state,
+                input: {
+                    ...state.input,
+                    [action.payload.name]: action.payload.value,
+                },
+            };
 
         case 'SET_QUIZ':
             const newQuiz = sortAnswers(action.payload);
@@ -33,7 +38,7 @@ export const reducer = (state, action) => {
                 quiz: [...newQuiz],
                 isLoading: false,
                 isStart: true,
-                error: { show: false, msg: '' }
+                error: { show: false, msg: '' },
             };
 
         case 'HANDLE_ANSWERS': {
@@ -42,7 +47,7 @@ export const reducer = (state, action) => {
                 if (item.question === action.payload.question) {
                     newQuestion = {
                         ...item,
-                        your_answer: action.payload.answer
+                        your_answer: action.payload.answer,
                     };
                 } else {
                     newQuestion = item;
@@ -66,11 +71,9 @@ export const reducer = (state, action) => {
                 quiz: [],
                 isStart: false,
                 isLoading: false,
-                category: 21,
-                difficulty: 'easy',
                 result: 0,
                 modalShow: false,
-                error: { show: false, msg: '' }
+                error: { show: false, msg: '' },
             };
 
         default:

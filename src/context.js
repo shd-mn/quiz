@@ -4,7 +4,7 @@ import { reducer } from './reducer';
 const table = {
     sports: 21,
     history: 23,
-    politics: 24
+    politics: 24,
 };
 
 const API_ENDPOINT = 'https://opentdb.com/api.php?';
@@ -15,12 +15,10 @@ const initialState = {
     quiz: [],
     isStart: false,
     isLoading: false,
-    amount: 5,
-    category: 21,
-    difficulty: 'easy',
+    input: { amount: 5, category: 'sports', difficulty: 'easy' },
     result: 0,
     modalShow: false,
-    error: { show: false, msg: '' }
+    error: { show: false, msg: '' },
 };
 
 const AppProvider = ({ children }) => {
@@ -34,28 +32,20 @@ const AppProvider = ({ children }) => {
             if (result.response_code === 0) {
                 dispatch({
                     type: 'SET_QUIZ',
-                    payload: result.results
+                    payload: result.results,
                 });
             } else {
-                dispatch({ type: 'HANDLE_ERROR', payload: result.response_code })
+                dispatch({
+                    type: 'HANDLE_ERROR',
+                    payload: result.response_code,
+                });
             }
         } catch (error) {
             console.log(error);
         }
     };
 
-    const handleStart = (e) => {
-        e.preventDefault();
-        fetchData(
-            `${API_ENDPOINT}type=multiple&amount=${state.amount}&category=${state.category}&difficulty=${state.difficulty}`
-        );
-    };
-
-    const handleAmount = (value) => {
-        dispatch({ type: 'HANDLE_AMOUNT', payload: value });
-    };
-
-    const handleCategory = (value) => {
+    const checkCategoryValue = (value) => {
         switch (value) {
             case 'sports':
                 value = table.sports;
@@ -69,10 +59,21 @@ const AppProvider = ({ children }) => {
             default:
                 return;
         }
-        dispatch({ type: 'HANDLE_CATEGORY', payload: value });
+        return value;
     };
-    const handleDiffIuculty = (value) => {
-        dispatch({ type: 'HANDLE_DIFFICULTY', payload: value });
+
+    const handleStart = (e) => {
+        e.preventDefault();
+        const categoryValue = checkCategoryValue(state.input.category);
+        fetchData(
+            `${API_ENDPOINT}type=multiple&amount=${state.input.amount}&category=${categoryValue}&difficulty=${state.input.difficulty}`
+        );
+    };
+
+    const handleInputs = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        dispatch({ type: 'HANDLE_INPUT', payload: { name, value } });
     };
 
     const handleAnswers = (question, answer) => {
@@ -89,13 +90,11 @@ const AppProvider = ({ children }) => {
 
     const data = {
         ...state,
-        handleAmount,
-        handleCategory,
-        handleDiffIuculty,
         handleStart,
         handleAnswers,
         handleResult,
-        handleReset
+        handleReset,
+        handleInputs,
     };
     return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
 };
