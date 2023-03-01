@@ -2,9 +2,17 @@ import React, { useContext, useReducer } from 'react';
 import { reducer } from './reducer';
 
 const table = {
+
+    books: 10,
+    film: 11,
+    music: 12,
+    videogames: 15,
+    computers: 18,
+    mathematics: 19,
     sports: 21,
     history: 23,
     politics: 24,
+    general: 9
 };
 
 const API_ENDPOINT = 'https://opentdb.com/api.php?';
@@ -15,7 +23,7 @@ const initialState = {
     quiz: [],
     isStart: false,
     isLoading: false,
-    input: { amount: 5, category: 'sports', difficulty: 'easy' },
+    input: { amount: 5, category: 'books', difficulty: 'easy' },
     result: 0,
     modalShow: false,
     error: { show: false, msg: '' },
@@ -45,28 +53,10 @@ const AppProvider = ({ children }) => {
         }
     };
 
-    const checkCategoryValue = (value) => {
-        switch (value) {
-            case 'sports':
-                value = table.sports;
-                break;
-            case 'history':
-                value = table.history;
-                break;
-            case 'politics':
-                value = table.politics;
-                break;
-            default:
-                return;
-        }
-        return value;
-    };
-
     const handleStart = (e) => {
         e.preventDefault();
-        const categoryValue = checkCategoryValue(state.input.category);
         fetchData(
-            `${API_ENDPOINT}type=multiple&amount=${state.input.amount}&category=${categoryValue}&difficulty=${state.input.difficulty}`
+            `${API_ENDPOINT}type=multiple&amount=${state.input.amount}&category=${table[state.input.category]}&difficulty=${state.input.difficulty}`
         );
     };
 

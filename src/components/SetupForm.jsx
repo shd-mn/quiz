@@ -31,9 +31,16 @@ const SetupForm = () => {
                     value={input.category}
                     onChange={(e) => handleInputs(e)}
                 >
+                    <option value="books">books</option>
+                    <option value="film">film</option>
+                    <option value="music">music</option>
+                    <option value="videogames">video games</option>
+                    <option value="computers">computers</option>
+                    <option value="mathematics">mathematics</option>
                     <option value="sports">sports</option>
                     <option value="history">history</option>
                     <option value="politics">politics</option>
+                    <option value="general">general</option>
                 </select>
             </div>
 

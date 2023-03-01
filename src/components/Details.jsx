@@ -19,9 +19,9 @@ const Details = () => {
                         >
                             <h4 className="question">{decode(answer.question)}</h4>
                             <h6 className="answer">
-                                <span>correct answer :</span>  {correct}
+                                <span>correct answer :</span>  {decode(correct)}
                             </h6>
-                            <h6 className="answer"> <span>your answer :</span> {your}</h6>
+                            <h6 className="answer"> <span>your answer :</span> {decode(your)}</h6>
                         </div>
                     );
                 })}
