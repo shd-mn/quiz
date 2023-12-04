@@ -11,6 +11,7 @@ function App() {
     }
     return (
         <main>
+            <h1 className="text-center">With Typescript</h1>
             <Quiz />
             {modalShow && <Modal />}
         </main>
